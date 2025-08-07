@@ -1,8 +1,11 @@
 name: Build and Publish Docker Image
 
 on:
-  workflow_dispatch:  # ← manual trigger only
-
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Docker image tag (e.g. v1)'
+        required: true
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -34,9 +37,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=ref,event=branch
-            type=sha,format=short
-
+            type=raw,value=${{ github.event.inputs.tag }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
