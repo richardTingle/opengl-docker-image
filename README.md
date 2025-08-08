@@ -9,7 +9,9 @@ This Docker image is based on Ubuntu 22.04 and includes:
 - OpenJDK 17
 - Mesa utilities and libraries for OpenGL rendering
 - Xvfb (X Virtual Framebuffer) for headless rendering
+- X11 utilities for display management
 - Configuration for software rendering via environment variables
+- Robust Xvfb initialization with wait mechanism
 
 ## Usage
 
@@ -34,6 +36,18 @@ This image provides the necessary environment for running OpenGL-based tests wit
 - `LIBGL_ALWAYS_SOFTWARE=1`
 - `MESA_LOADER_DRIVER_OVERRIDE=llvmpipe`
 - `DISPLAY=:99`
+
+#### Xvfb Initialization
+
+The image includes a mechanism to ensure Xvfb (X Virtual Framebuffer) is fully initialized before any OpenGL commands are executed. This is critical for CI/CD environments like GitHub Actions where OpenGL tests might fail if the virtual display isn't ready.
+
+The entrypoint script:
+1. Starts Xvfb in the background
+2. Waits for Xvfb to be fully initialized (using xdpyinfo)
+3. Provides clear status messages during initialization
+4. Fails gracefully with an error message if Xvfb doesn't start properly
+
+This ensures that OpenGL commands like `glxinfo` will work reliably in CI/CD pipelines.
 
 ## Building Locally
 

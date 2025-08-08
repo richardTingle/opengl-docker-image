@@ -10,6 +10,7 @@ RUN apt-get update && \
       libgl1 \
       libglx-mesa0 \
       xvfb \
+      x11-utils \
       wget unzip && \
     apt-get clean
 
