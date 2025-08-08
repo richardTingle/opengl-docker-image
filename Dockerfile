@@ -17,4 +17,10 @@ ENV LIBGL_ALWAYS_SOFTWARE=1
 ENV MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
 ENV DISPLAY=:99
 
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Set entrypoint to start Xvfb automatically
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]
