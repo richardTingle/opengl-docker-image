@@ -23,6 +23,5 @@ ENV XDG_RUNTIME_DIR=/tmp/runtime-dir
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Set entrypoint to start Xvfb automatically
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]
