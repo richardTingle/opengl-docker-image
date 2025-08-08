@@ -11,7 +11,6 @@ This Docker image is based on Ubuntu 22.04 and includes:
 - Xvfb (X Virtual Framebuffer) for headless rendering
 - X11 utilities for display management
 - Configuration for software rendering via environment variables
-- Robust Xvfb initialization with wait mechanism
 
 ## Usage
 
@@ -39,15 +38,13 @@ This image provides the necessary environment for running OpenGL-based tests wit
 
 #### Xvfb Initialization
 
-The image includes a mechanism to ensure Xvfb (X Virtual Framebuffer) is fully initialized before any OpenGL commands are executed. This is critical for CI/CD environments like GitHub Actions where OpenGL tests might fail if the virtual display isn't ready.
+In your github step you should boot up xvfb. Use a step like this
 
-The entrypoint script:
-1. Starts Xvfb in the background
-2. Waits for Xvfb to be fully initialized (using xdpyinfo)
-3. Provides clear status messages during initialization
-4. Fails gracefully with an error message if Xvfb doesn't start properly
-
-This ensures that OpenGL commands like `glxinfo` will work reliably in CI/CD pipelines.
+    - name: Start xvfb
+      run: |
+        Xvfb :99 -ac -screen 0 1024x768x16 &
+        export DISPLAY=:99
+        echo "DISPLAY=:99" >> $GITHUB_ENV
 
 ## Building Locally
 
