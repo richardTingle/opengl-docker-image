@@ -11,5 +11,9 @@ Xvfb :99 -ac -screen 0 1024x768x16 &
 # Export DISPLAY environment variable
 export DISPLAY=:99
 
+# Set environment variables for Mesa3D
+export LIBGL_ALWAYS_SOFTWARE=1
+export MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
+
 # Execute the command passed to docker run
 exec "$@"
