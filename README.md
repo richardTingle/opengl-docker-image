@@ -35,6 +35,7 @@ This image provides the necessary environment for running OpenGL-based tests wit
 - `LIBGL_ALWAYS_SOFTWARE=1`
 - `MESA_LOADER_DRIVER_OVERRIDE=llvmpipe`
 - `DISPLAY=:99`
+- `XDG_RUNTIME_DIR=/tmp/runtime-dir`
 
 #### Xvfb Initialization
 

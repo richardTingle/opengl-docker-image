@@ -17,6 +17,7 @@ RUN apt-get update && \
 ENV LIBGL_ALWAYS_SOFTWARE=1
 ENV MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
 ENV DISPLAY=:99
+ENV XDG_RUNTIME_DIR=/tmp/runtime-dir
 
 # Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
